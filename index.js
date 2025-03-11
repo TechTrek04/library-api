@@ -1,11 +1,13 @@
 import express from 'express'
 import 'dotenv/config'
 import mongoose from 'mongoose';
+import bookRouter from './routes/library.js';
 
 
 
-const connectionString = process.env.MONGO_URI
-console.log(connectionString)
+await mongoose.connect(process.env.MONGO_URI);
+const connectionString = process.env.MONGO_URI;
+
 
 
 
@@ -21,6 +23,7 @@ const PORT = 6000;
 
 
 app.use(express.json()); // Middleware to parse JSON requests
+app.use('/library', bookRouter)
 
 
 // app.get("/", (req, res) => {

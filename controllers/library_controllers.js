@@ -4,8 +4,8 @@ import {bookModel} from '../models/library_model.js';
 export const createBook = async (req, res, next) => {
     
        try {
-         const {title, description} = req.body;
-         const createBook = new bookModel({title,author,genre,yearPublished,description,pages});
+        const { title, author, genre, yearPublished, description, pages } = req.body;
+         const createBook = new bookModel(req.body);
          await createBook.save();
          res.status(201).json(createBook);
        } catch (error) {
@@ -21,18 +21,28 @@ export const getAllBook = async (req, res) => {
     } catch (error) {
      next(error);
     }
- } 
+ };
+
+
+// Get book by ID
+ export const getBookById = async (req, res) => {
+  try {
+    const book = await bookModel.findById(req.params.id).exec();
+    if (!book) return res.status(404).json({ message: "Student not found" });
+    res.status(200).json(book);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 //Update book details
-export const updateBook = async (req, res, next) => {
-    try {
-      const{ id } = req.params;
-      const { title, description } = req.body;
-      const updateBook = await bookModel.findByIdAndUpdate(id,
-        {title,author,genre,yearPublished,description,pages},{ new: true });
-      res.status(201).json(updateBook);
+export const updateBook = async (req, res) => {
+  try {
+    const updatedBook = await bookModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedBook) return res.status(404).json({ message: "Book not found" });
+    res.status(200).json(updatedBook);
   } catch (error) {
-    next(error);
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -40,9 +50,20 @@ export const updateBook = async (req, res, next) => {
 export const deleteBook = async (req, res, next) => {
    try {
      const{id} = req.params;
-     await bookModel.findByIdAndDelete(id);
-     res.status(201).json({message:'Book Deleted!'})
+     await bookModel.findByIdAndDelete(id).exec();
+     res.status(200).json({message:'Book Deleted!'})
    } catch (error) {
     next(error);
    }
 }
+
+// export const updateBook = async (req, res, next) => {
+//   try {
+//     const{ id } = req.params;
+//     const updateBook = await bookModel.findByIdAndUpdate(id).exec();
+//     res.status(200).json(updateBook);
+// } catch (error) {
+//   next(error);
+// }
+// };
+
