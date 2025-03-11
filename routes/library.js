@@ -12,7 +12,7 @@ const bookRouter = Router();
 //Defining Route
 bookRouter.get("/:id", getAllBook);
 bookRouter.post("/", createBook);
-bookRouter.put("/:id", updateBook);
+bookRouter.patch("/:id", updateBook);
 bookRouter.delete("/:id", deleteBook);
 
 //exporting Router
