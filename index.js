@@ -2,6 +2,7 @@ import express from 'express'
 import 'dotenv/config'
 import mongoose from 'mongoose';
 import bookRouter from './routes/library.js';
+import cors from "cors"
 
 
 
@@ -21,15 +22,13 @@ mongoose.connect(connectionString).then(() => {
 
 const PORT = 6000;
 
+// Middleware to parse JSON requests
+app.use(express.json()); 
+app.use('/library', bookRouter);
+app.use(cors())
 
-app.use(express.json()); // Middleware to parse JSON requests
-app.use('/library', bookRouter)
 
-
-// app.get("/", (req, res) => {
-//   res.send("Welcome to the Student Record System API!");
-// });
-
+const port = process.env.PORT || 6000;
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
