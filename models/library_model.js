@@ -7,6 +7,7 @@ const bookSchema = new Schema({
     yearPublished:{type: Number, required: true},
     description:{type: String, required: true},
     pages:{type: Number},
+    image: {type: String}
 
 }, {timestamps: true});
 
