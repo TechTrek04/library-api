@@ -1,11 +1,19 @@
 import {bookModel} from '../models/library_model.js';
+import { addBookValidator } from '../validators/library_validators.js';
 
 //create a new book
 export const createBook = async (req, res, next) => {
     
        try {
         const { title, author, genre, yearPublished, description, pages } = req.body;
-         const createBook = new bookModel(req.body);
+        const {error, value} = addBookValidator.validate({
+          ...req.body,
+          image: req.file.filename
+        });
+        if(error) {
+          return res.status(422).json(error);
+        }
+         const createBook = new bookModel(value);
          await createBook.save();
          res.status(201).json(createBook);
        } catch (error) {
