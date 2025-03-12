@@ -56,14 +56,3 @@ export const deleteBook = async (req, res, next) => {
     next(error);
    }
 }
-
-// export const updateBook = async (req, res, next) => {
-//   try {
-//     const{ id } = req.params;
-//     const updateBook = await bookModel.findByIdAndUpdate(id).exec();
-//     res.status(200).json(updateBook);
-// } catch (error) {
-//   next(error);
-// }
-// };
-

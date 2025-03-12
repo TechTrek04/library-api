@@ -6,7 +6,7 @@ const bookSchema = new Schema({
     genre:{type: String, required: true},
     yearPublished:{type: Number, required: true},
     description:{type: String, required: true},
-    pages:{type: Number, required: true},
+    pages:{type: Number},
 
 }, {timestamps: true});
 
