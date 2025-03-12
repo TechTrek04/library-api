@@ -3,6 +3,7 @@ import {
   createBook,
   deleteBook,
   getAllBook,
+  getBookById,
   updateBook,
 } from "../controllers/library_controllers.js";
 
@@ -10,10 +11,11 @@ import {
 const bookRouter = Router();
 
 //Defining Route
-bookRouter.get("/:id", getAllBook);
-bookRouter.post("/", createBook);
-bookRouter.patch("/:id", updateBook);
-bookRouter.delete("/:id", deleteBook);
+bookRouter.get("/books", getAllBook);
+bookRouter.post("/books", createBook);
+bookRouter.get("/books/:id", getBookById);
+bookRouter.patch("/books/:id", updateBook);
+bookRouter.delete("/books/:id", deleteBook);
 
 //exporting Router
 
