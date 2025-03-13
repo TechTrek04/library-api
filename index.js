@@ -23,8 +23,8 @@ mongoose.connect(connectionString).then(() => {
 const PORT = 6000;
 
 // Middleware to parse JSON requests
-app.use(express.json());
 app.use(cors())
+app.use(express.json());
 app.use('/library', bookRouter);
 
  
