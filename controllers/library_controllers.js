@@ -8,7 +8,7 @@ export const createBook = async (req, res, next) => {
         const { title, author, genre, yearPublished, description, pages } = req.body;
         const {error, value} = addBookValidator.validate({
           ...req.body,
-          image: req.file.filename
+          image: req.file?.filename
         });
         if(error) {
           return res.status(422).json(error);
@@ -46,7 +46,13 @@ export const getAllBook = async (req, res) => {
 //Update book details
 export const updateBook = async (req, res) => {
   try {
-    const updatedBook = await bookModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedBook = await bookModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
+      {
+        ...req.body,
+        image: req.file.filename
+      }
+    );
+
     if (!updatedBook) return res.status(404).json({ message: "Book not found" });
     res.status(200).json(updatedBook);
   } catch (error) {
