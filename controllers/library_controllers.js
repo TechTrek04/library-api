@@ -47,10 +47,6 @@ export const getAllBook = async (req, res) => {
 export const updateBook = async (req, res) => {
   try {
     const updatedBook = await bookModel.findByIdAndUpdate(req.params.id, req.body, { new: true },
-      {
-        ...req.body,
-        image: req.file.filename
-      }
     );
 
     if (!updatedBook) return res.status(404).json({ message: "Book not found" });
