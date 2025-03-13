@@ -15,7 +15,7 @@ const bookRouter = Router();
 bookRouter.get("/books", getAllBook);
 bookRouter.post("/books", remoteUpload.single('image'), createBook);
 bookRouter.get("/books/:id", getBookById);
-bookRouter.patch("/books/:id", updateBook);
+bookRouter.patch("/books/:id", remoteUpload.single('image'), updateBook);
 bookRouter.delete("/books/:id", deleteBook);
 
 //exporting Router
